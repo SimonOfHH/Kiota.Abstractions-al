@@ -1,0 +1,46 @@
+{
+  "id": "c24a2609-e5c2-4702-b734-db13e5a6594c",
+  "name": "Kiota.Abstractions",
+  "publisher": "SimonOfHH",
+  "version": "1.0.0.0",
+  "brief": "Provides some base classes and interfaces for Kiota.",
+  "description": "This package provides some base functionality for Kiota, including the base classes and interfaces that are used to build the Kiota client.",
+  "privacyStatement": "https://www.providersample.com/data-protection",
+  "EULA": "https://www.providersample.com/eula",
+  "help": "https://www.providersample.com/help",
+  "url": "https://www.providersample.com",
+  "contextSensitiveHelpUrl": "https://www.providersample.com/help",
+  "logo": "Assets/logo.png",
+  "propagateDependencies": false,
+  "dependencies": [],
+  "screenshots": [],
+  "internalsVisibleTo": [
+    {
+      "id": "d007a494-ceda-4c80-bece-497cd88cf596",
+      "name": "Kiota.Abstractions-Tests",
+      "publisher": "SimonOfHH"
+    }
+  ],
+  "application": "25.0.0.0",
+  "platform": "25.0.0.0",
+  "idRanges": [
+    {
+      "from": 87100,
+      "to": 87189
+    }
+  ],
+  "features": [
+    "TranslationFile",
+    "NoImplicitWith"
+  ],
+  "runtime": "14.0",
+  "target": "Cloud",
+  "supportedLocales": [
+    "en-US"
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  }
+}

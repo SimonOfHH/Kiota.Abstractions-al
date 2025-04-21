@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "name": "app",
+      "path": "app"
+    },
+    {
+      "name": "test",
+      "path": "test"
+    }
+  ],
+  "settings": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "vscode-icons",
+    "CRS.AlSubFolderName": "src",
+    "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+    "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.<BaseNameShort>.al",
+    "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>PageCust.<BaseNameShort>.al",
+    "CRS.ObjectNamePrefix": "CCS",
+    "CRS.RemovePrefixFromFilename": true,
+    "al.codeAnalyzers": [
+      "${CodeCop}",
+      "${UICop}",
+      "${PerTenantExtensionCop}"
+    ],
+    "al.enableCodeAnalysis": true,
+    "al.rulesetPath": "Cop.ruleset.json",
+    "al.enableCodeActions": true
+  },
+  "extensions": {
+    "recommendations": [
+      "cosmoconsult.cosmo-azure-devops",
+      "ms-dynamics-smb.al",
+      "waldo.crs-al-language-extension",
+      "vscode-icons-team.vscode-icons"
+    ]
+  }
+}

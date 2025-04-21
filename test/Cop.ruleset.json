@@ -1,0 +1,25 @@
+{
+    "name": "Cops ruleset",
+    "rules": [
+        {
+            "id": "AS0015",
+            "action": "Info",
+            "justification": "Irrelevant in test app"
+        },
+        {
+            "id": "AS0051",
+            "action": "Info",
+            "justification": "Irrelevant in test app"
+        },
+        {
+            "id": "AS0052",
+            "action": "Info",
+            "justification": "Irrelevant in test app"
+        },
+        {
+            "id": "AS0054",
+            "action": "Info",
+            "justification": "Irrelevant in test app"
+        }
+    ]
+}
