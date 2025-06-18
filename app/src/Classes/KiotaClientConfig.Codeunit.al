@@ -1,6 +1,7 @@
 namespace SimonOfHH.Kiota.Client;
 
 using SimonOfHH.Kiota.Definitions;
+using SimonOfHH.Kiota.Utilities;
 
 codeunit 87107 "Kiota ClientConfig SOHH"
 {
@@ -8,6 +9,8 @@ codeunit 87107 "Kiota ClientConfig SOHH"
         _Authorization: Codeunit "Kiota API Authorization SOHH";
         _BaseURL: Text;
         _Client: Interface "Kiota IApiClient SOHH";
+        _CustomHeaders: Dictionary of [Text, Text];
+        RequestHelper: Codeunit "RequestHelper SOHH";
 
     procedure BaseURL(URL: Text)
     begin
@@ -50,5 +53,44 @@ codeunit 87107 "Kiota ClientConfig SOHH"
     procedure Client(NewApiClient: Interface "Kiota IApiClient SOHH")
     begin
         _Client := NewApiClient;
+    end;
+
+    procedure AddHeader(HeaderName: Text; HeaderValue: Text)
+    begin
+        if not _CustomHeaders.ContainsKey(HeaderName) then
+            _CustomHeaders.Add(HeaderName, HeaderValue)
+        else
+            _CustomHeaders.Set(HeaderName, HeaderValue);
+    end;
+
+    procedure CustomHeaders(): Dictionary of [Text, Text]
+    begin
+        exit(_CustomHeaders);
+    end;
+
+    procedure RequestHeaders(): Dictionary of [Text, Text]
+    var
+        NewHeaders: Dictionary of [Text, Text];
+        HeaderName, HeaderValue : Text;
+    begin
+        foreach HeaderName in _CustomHeaders.Keys() do begin
+            HeaderValue := _CustomHeaders.Get(HeaderName);
+            if not RequestHelper.IsContentHeader(HeaderName) then
+                NewHeaders.Add(HeaderName, HeaderValue);
+        end;
+        exit(NewHeaders);
+    end;
+
+    procedure ContentHeaders(): Dictionary of [Text, Text]
+    var
+        NewHeaders: Dictionary of [Text, Text];
+        HeaderName, HeaderValue : Text;
+    begin
+        foreach HeaderName in _CustomHeaders.Keys() do begin
+            HeaderValue := _CustomHeaders.Get(HeaderName);
+            if RequestHelper.IsContentHeader(HeaderName) then
+                NewHeaders.Add(HeaderName, HeaderValue);
+        end;
+        exit(NewHeaders);
     end;
 }
