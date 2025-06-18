@@ -164,7 +164,7 @@ codeunit 87101 "JSON Helper SOHH"
         JKeys: List of [Text];
         "key": Text;
     begin
-        JObject := JValue.ToJson().AsObject();
+        JObject := JValue.ToJson();
         JKeys := JObject.Keys;
         foreach "key" in JKeys do begin
             JObject.Get("key", JBaseValue);
@@ -178,7 +178,7 @@ codeunit 87101 "JSON Helper SOHH"
         JToken: JsonToken;
         JKeys: List of [Text];
     begin
-        JToken := JValue.ToJson();
+        JToken := JValue.ToJson().AsToken();
         if not JToken.IsObject then
             exit(true);
         JKeys := JToken.AsObject().Keys;
