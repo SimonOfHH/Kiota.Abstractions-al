@@ -136,6 +136,28 @@ codeunit 87101 "JSON Helper SOHH"
             TargetObject.Add(JKey, JValue);
     end;
 
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Date)
+    begin
+        AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false)
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Date; Nullable: Boolean)
+    begin
+        if (JValue <> 0D) or (Nullable) then
+            TargetObject.Add(JKey, JValue);
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Time)
+    begin
+        AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false)
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Time; Nullable: Boolean)
+    begin
+        if (JValue <> 0T) or (Nullable) then
+            TargetObject.Add(JKey, JValue);
+    end;
+
     procedure AddToArrayIfNotEmpty(var TargetArray: JsonArray; JValue: Interface "Kiota IModelClass SOHH")
     begin
         AddToArrayIfNotEmpty(TargetArray, JValue, false);
