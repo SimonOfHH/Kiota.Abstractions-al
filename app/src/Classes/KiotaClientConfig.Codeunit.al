@@ -7,10 +7,10 @@ codeunit 87107 "Kiota ClientConfig SOHH"
 {
     var
         _Authorization: Codeunit "Kiota API Authorization SOHH";
+        _RequestHelper: Codeunit "RequestHelper SOHH";
         _BaseURL: Text;
         _Client: Interface "Kiota IApiClient SOHH";
         _CustomHeaders: Dictionary of [Text, Text];
-        RequestHelper: Codeunit "RequestHelper SOHH";
 
     procedure BaseURL(URL: Text)
     begin
@@ -75,7 +75,7 @@ codeunit 87107 "Kiota ClientConfig SOHH"
     begin
         foreach HeaderName in _CustomHeaders.Keys() do begin
             HeaderValue := _CustomHeaders.Get(HeaderName);
-            if not RequestHelper.IsContentHeader(HeaderName) then
+            if not _RequestHelper.IsContentHeader(HeaderName) then
                 NewHeaders.Add(HeaderName, HeaderValue);
         end;
         exit(NewHeaders);
@@ -88,7 +88,7 @@ codeunit 87107 "Kiota ClientConfig SOHH"
     begin
         foreach HeaderName in _CustomHeaders.Keys() do begin
             HeaderValue := _CustomHeaders.Get(HeaderName);
-            if RequestHelper.IsContentHeader(HeaderName) then
+            if _RequestHelper.IsContentHeader(HeaderName) then
                 NewHeaders.Add(HeaderName, HeaderValue);
         end;
         exit(NewHeaders);

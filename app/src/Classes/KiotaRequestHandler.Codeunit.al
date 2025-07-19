@@ -23,12 +23,6 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         Method := NewMethod;
     end;
 
-    procedure SetBody(body: Byte)
-    begin
-        // TODO: Implement this for binary data
-        // BodySet := true;
-    end;
-
     procedure SetBody(NewContent: HttpContent)
     begin
         Content := NewContent;
@@ -73,7 +67,6 @@ codeunit 87103 "Kiota RequestHandler SoHH"
     procedure RequestMessage(): Codeunit System.RestClient."Http Request Message"
     var
         Headers: HttpHeaders;
-        Header, Value : Text;
     begin
         if RequestMsgSet then
             exit(RequestMsgToCodeunitObject());
