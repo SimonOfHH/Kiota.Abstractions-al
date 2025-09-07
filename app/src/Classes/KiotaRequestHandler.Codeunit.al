@@ -90,6 +90,10 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         RqstMessage: Codeunit System.RestClient."Http Request Message";
         RspMessage: Codeunit System.RestClient."Http Response Message";
     begin
+        if (ClientConfig.HttpHandlerSet()) then
+            RestClient.Create(ClientConfig.HttpHandler())
+        else
+            RestClient.Create();
         RqstMessage := RequestMessage();
         RspMessage := RestClient.Send(RqstMessage);
         ClientConfig.Client().Response(RspMessage);

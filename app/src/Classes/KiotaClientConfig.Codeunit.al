@@ -1,5 +1,6 @@
 namespace SimonOfHH.Kiota.Client;
 
+using System.RestClient;
 using SimonOfHH.Kiota.Definitions;
 using SimonOfHH.Kiota.Utilities;
 
@@ -8,9 +9,11 @@ codeunit 87107 "Kiota ClientConfig SOHH"
     var
         _Authorization: Codeunit "Kiota API Authorization SOHH";
         _RequestHelper: Codeunit "RequestHelper SOHH";
+        _HttpHandler: Interface "Http Client Handler";
         _BaseURL: Text;
         _Client: Interface "Kiota IApiClient SOHH";
         _CustomHeaders: Dictionary of [Text, Text];
+        CustomHttpHandlerSet: Boolean;
 
     procedure BaseURL(URL: Text)
     begin
@@ -92,5 +95,21 @@ codeunit 87107 "Kiota ClientConfig SOHH"
                 NewHeaders.Add(HeaderName, HeaderValue);
         end;
         exit(NewHeaders);
+    end;
+
+    internal procedure HttpHandler(): Interface "Http Client Handler"
+    begin
+        exit(_HttpHandler);
+    end;
+
+    procedure HttpHandler(HttpHandlerImplementation: Interface "Http Client Handler")
+    begin
+        _HttpHandler := HttpHandlerImplementation;
+        CustomHttpHandlerSet := true;
+    end;
+
+    procedure HttpHandlerSet(): Boolean
+    begin
+        exit(CustomHttpHandlerSet);
     end;
 }
