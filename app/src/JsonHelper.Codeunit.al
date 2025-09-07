@@ -249,4 +249,48 @@ codeunit 87101 "JSON Helper SOHH"
     begin
         TargetObject.Add(JKey, JValue);
     end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [BigInteger])
+    begin
+        this.AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false);
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [BigInteger]; Nullable:
+    Boolean)
+    var
+        entry: BigInteger;
+        jarray: JsonArray;
+    begin
+        if JValue.Count > 0 then
+            if ((JValue.Count = 1) and (JValue.Get(1) = 0)) then
+                JValue.RemoveAt(1);
+        if (JValue.Count = 0) and (not Nullable) then
+            exit;
+        foreach entry in JValue do
+            if entry <> 0 then
+                jarray.Add(entry);
+        TargetObject.Add(JKey, jarray);
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [Integer])
+    begin
+        this.AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false);
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [Integer]; Nullable:
+    Boolean)
+    var
+        entry: Integer;
+        jarray: JsonArray;
+    begin
+        if JValue.Count > 0 then
+            if ((JValue.Count = 1) and (JValue.Get(1) = 0)) then
+                JValue.RemoveAt(1);
+        if (JValue.Count = 0) and (not Nullable) then
+            exit;
+        foreach entry in JValue do
+            if entry <> 0 then
+                jarray.Add(entry);
+        TargetObject.Add(JKey, jarray);
+    end;
 }
