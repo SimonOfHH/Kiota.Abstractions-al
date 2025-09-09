@@ -103,7 +103,7 @@ codeunit 87103 "Kiota RequestHandler SoHH"
 
     procedure AddQueryParameter(ParamKey: Text; Value: Text)
     begin
-        if (ParamKey = '') or (Value = '') then
+        if ParamKey = '' then
             exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Value);
     end;
@@ -123,26 +123,36 @@ codeunit 87103 "Kiota RequestHandler SoHH"
 
     procedure AddQueryParameter(ParamKey: Text; Value: Integer)
     begin
+        if ParamKey = '' then
+            exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Format(Value));
     end;
 
     procedure AddQueryParameter(ParamKey: Text; Value: Decimal)
     begin
+        if ParamKey = '' then
+            exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Format(Value));
     end;
 
     procedure AddQueryParameter(ParamKey: Text; Value: Date)
     begin
+        if ParamKey = '' then
+            exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
     end;
 
     procedure AddQueryParameter(ParamKey: Text; Value: DateTime)
     begin
+        if ParamKey = '' then
+            exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
     end;
 
     procedure AddQueryParameter(ParamKey: Text; Value: Time)
     begin
+        if ParamKey = '' then
+            exit;
         this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
     end;
 
@@ -152,17 +162,15 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         CombinedValue: Text;
         Value: Text;
     begin
-        if (ParamKey = '') or (Values.Count = 0) then
+        if ParamKey = '' then
             exit;
         IsFirst := true;
         foreach Value in Values do begin
-            if Value <> '' then begin
-                if not IsFirst then
-                    CombinedValue += ','
-                else
-                    IsFirst := false;
-                CombinedValue += Value;
-            end;
+            if not IsFirst then
+                CombinedValue += ','
+            else
+                IsFirst := false;
+            CombinedValue += Value;
         end;
         if CombinedValue <> '' then
             this.ClientConfig.AddQueryParameter(ParamKey, CombinedValue);

@@ -61,10 +61,7 @@ codeunit 87107 "Kiota ClientConfig SOHH"
 
     procedure AddHeader(HeaderName: Text; HeaderValue: Text)
     begin
-        if not _CustomHeaders.ContainsKey(HeaderName) then
-            _CustomHeaders.Add(HeaderName, HeaderValue)
-        else
-            _CustomHeaders.Set(HeaderName, HeaderValue);
+        _CustomHeaders.Set(HeaderName, HeaderValue);
     end;
 
     procedure CustomHeaders(): Dictionary of [Text, Text]
@@ -116,9 +113,6 @@ codeunit 87107 "Kiota ClientConfig SOHH"
 
     procedure AddQueryParameter(ParamName: Text; ParamValue: Text)
     begin
-        if not this._QueryParameters.ContainsKey(ParamName) then
-            this._QueryParameters.Add(ParamName, ParamValue)
-        else
-            this._QueryParameters.Set(ParamName, ParamValue);
+        this._QueryParameters.Set(ParamName, ParamValue);
     end;
 }
