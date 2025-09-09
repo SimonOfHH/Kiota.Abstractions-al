@@ -1,19 +1,20 @@
 namespace SimonOfHH.Kiota.Client;
 
-using System.RestClient;
 using SimonOfHH.Kiota.Definitions;
 using SimonOfHH.Kiota.Utilities;
+using System.RestClient;
 
 codeunit 87107 "Kiota ClientConfig SOHH"
 {
     var
         _Authorization: Codeunit "Kiota API Authorization SOHH";
         _RequestHelper: Codeunit "RequestHelper SOHH";
+        CustomHttpHandlerSet: Boolean;
+        _CustomHeaders: Dictionary of [Text, Text];
+        _QueryParameters: Dictionary of [Text, Text];
+        _Client: Interface "Kiota IApiClient SOHH";
         _HttpHandler: Interface "Http Client Handler";
         _BaseURL: Text;
-        _Client: Interface "Kiota IApiClient SOHH";
-        _CustomHeaders: Dictionary of [Text, Text];
-        CustomHttpHandlerSet: Boolean;
 
     procedure BaseURL(URL: Text)
     begin
@@ -111,5 +112,13 @@ codeunit 87107 "Kiota ClientConfig SOHH"
     procedure HttpHandlerSet(): Boolean
     begin
         exit(CustomHttpHandlerSet);
+    end;
+
+    procedure AddQueryParameter(ParamName: Text; ParamValue: Text)
+    begin
+        if not this._QueryParameters.ContainsKey(ParamName) then
+            this._QueryParameters.Add(ParamName, ParamValue)
+        else
+            this._QueryParameters.Set(ParamName, ParamValue);
     end;
 }

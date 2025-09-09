@@ -7,11 +7,12 @@ codeunit 87103 "Kiota RequestHandler SoHH"
     var
         ClientConfig: Codeunit "Kiota ClientConfig SOHH";
         RequestHelper: Codeunit "RequestHelper SOHH";
-        RequestMsg: HttpRequestMessage;
-        Content: HttpContent;
+        BodySet,
+        RequestMsgSet : Boolean;
         Method: Enum System.RestClient."Http Method";
+        Content: HttpContent;
+        RequestMsg: HttpRequestMessage;
         BodyAsJson: JsonToken;
-        RequestMsgSet, BodySet : Boolean;
 
     procedure SetClientConfig(var NewClientConfig: Codeunit "Kiota ClientConfig SOHH")
     begin
@@ -97,5 +98,73 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         RqstMessage := RequestMessage();
         RspMessage := RestClient.Send(RqstMessage);
         ClientConfig.Client().Response(RspMessage);
+    end;
+
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Text)
+    begin
+        if (ParamKey = '') or (Value = '') then
+            exit;
+        this.ClientConfig.AddQueryParameter(ParamKey, Value);
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Boolean)
+    var
+        BooleanText: Text;
+    begin
+        if ParamKey = '' then
+            exit;
+        if Value then
+            BooleanText := 'true'
+        else
+            BooleanText := 'false';
+        this.ClientConfig.AddQueryParameter(ParamKey, BooleanText);
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Integer)
+    begin
+        this.ClientConfig.AddQueryParameter(ParamKey, Format(Value));
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Decimal)
+    begin
+        this.ClientConfig.AddQueryParameter(ParamKey, Format(Value));
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Date)
+    begin
+        this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: DateTime)
+    begin
+        this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Value: Time)
+    begin
+        this.ClientConfig.AddQueryParameter(ParamKey, Format(Value, 0, 9));
+    end;
+
+    procedure AddQueryParameter(ParamKey: Text; Values: List of [Text])
+    var
+        IsFirst: Boolean;
+        CombinedValue: Text;
+        Value: Text;
+    begin
+        if (ParamKey = '') or (Values.Count = 0) then
+            exit;
+        IsFirst := true;
+        foreach Value in Values do begin
+            if Value <> '' then begin
+                if not IsFirst then
+                    CombinedValue += ','
+                else
+                    IsFirst := false;
+                CombinedValue += Value;
+            end;
+        end;
+        if CombinedValue <> '' then
+            this.ClientConfig.AddQueryParameter(ParamKey, CombinedValue);
     end;
 }
