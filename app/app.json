@@ -10,7 +10,7 @@
   "help": "https://www.providersample.com/help",
   "url": "https://www.providersample.com",
   "contextSensitiveHelpUrl": "https://www.providersample.com/help",
-  "logo": "Assets/logo.png",
+  "logo": "assets/logo.png",
   "propagateDependencies": false,
   "dependencies": [],
   "screenshots": [],
