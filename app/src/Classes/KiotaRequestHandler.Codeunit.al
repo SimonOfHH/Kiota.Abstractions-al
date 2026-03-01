@@ -91,15 +91,39 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         RqstMessage: Codeunit System.RestClient."Http Request Message";
         RspMessage: Codeunit System.RestClient."Http Response Message";
     begin
-        if (ClientConfig.HttpHandlerSet()) then
-            RestClient.Create(ClientConfig.HttpHandler())
-        else
-            RestClient.Create();
+        RestClient := InitializeRestClient();
         RqstMessage := RequestMessage();
+        OnBeforeHandleRequestRestClientSend(RestClient, RqstMessage);
         RspMessage := RestClient.Send(RqstMessage);
         ClientConfig.Client().Response(RspMessage);
+        OnAfterHandleRequestRestClientSend(RestClient, RqstMessage, RspMessage);
     end;
 
+    local procedure InitializeRestClient() RestClient: Codeunit System.RestClient."Rest Client";
+    begin
+        if (ClientConfig.HttpHandlerSet()) then begin
+            if (ClientConfig.Authorization().IsInitialized()) then
+                RestClient.Create(ClientConfig.HttpHandler(), ClientConfig.Authorization().GetAuthentication())
+            else
+                RestClient.Create(ClientConfig.HttpHandler())
+        end else
+            if (ClientConfig.Authorization().IsInitialized()) then
+                RestClient.Create(ClientConfig.Authorization().GetAuthentication())
+            else
+                RestClient.Create();
+        exit(RestClient);
+    end;
+
+    procedure AddQueryParameter(Params: Dictionary of [Text, Text])
+    var
+        ParamKey: Text;
+        ParamValue: Text;
+    begin
+        foreach ParamKey in Params.Keys do begin
+            ParamValue := Params.Get(ParamKey);
+            this.ClientConfig.AddQueryParameter(ParamKey, ParamValue);
+        end;
+    end;
 
     procedure AddQueryParameter(ParamKey: Text; Value: Text)
     begin
@@ -174,5 +198,15 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         end;
         if CombinedValue <> '' then
             this.ClientConfig.AddQueryParameter(ParamKey, CombinedValue);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeHandleRequestRestClientSend(RestClient: Codeunit System.RestClient."Rest Client"; RqstMessage: Codeunit System.RestClient."Http Request Message")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterHandleRequestRestClientSend(RestClient: Codeunit System.RestClient."Rest Client"; RqstMessage: Codeunit System.RestClient."Http Request Message"; RspMessage: Codeunit System.RestClient."Http Response Message")
+    begin
     end;
 }

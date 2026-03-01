@@ -29,6 +29,27 @@ codeunit 87101 "JSON Helper SOHH"
         end;
     end;
 
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [Guid])
+    begin
+        AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false);
+    end;
+
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: List of [Guid]; Nullable: Boolean)
+    var
+        jarray: JsonArray;
+        entry: Guid;
+    begin
+        if JValue.Count > 0 then
+            if ((JValue.Count = 1) and IsNullGuid(JValue.Get(1))) then
+                JValue.RemoveAt(1);
+        if (JValue.Count = 0) and (not Nullable) then
+            exit;
+        foreach entry in JValue do
+            if not IsNullGuid(entry) then
+                jarray.Add(Format(entry).ToLower().Replace('{', '').Replace('}', ''));
+        TargetObject.Add(JKey, jarray);
+    end;
+
     procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Guid)
     begin
         AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false)
