@@ -1,7 +1,7 @@
 namespace SimonOfHH.Kiota.Client;
 using System.RestClient;
 
-codeunit 87102 "Kiota API Authorization SOHH"
+codeunit 87102 "Kiota API Authorization"
 {
     var
         AuthImplementation: Interface "Http Authentication";
