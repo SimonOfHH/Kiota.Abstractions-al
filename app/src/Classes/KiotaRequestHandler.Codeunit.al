@@ -2,11 +2,11 @@ namespace SimonOfHH.Kiota.Client;
 
 using SimonOfHH.Kiota.Definitions;
 using SimonOfHH.Kiota.Utilities;
-codeunit 87103 "Kiota RequestHandler SoHH"
+codeunit 87103 "Kiota RequestHandler"
 {
     var
-        ClientConfig: Codeunit "Kiota ClientConfig SOHH";
-        RequestHelper: Codeunit "RequestHelper SOHH";
+        ClientConfig: Codeunit "Kiota ClientConfig";
+        RequestHelper: Codeunit "RequestHelper";
         BodySet,
         RequestMsgSet : Boolean;
         Method: Enum System.RestClient."Http Method";
@@ -14,7 +14,7 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         RequestMsg: HttpRequestMessage;
         BodyAsJson: JsonToken;
 
-    procedure SetClientConfig(var NewClientConfig: Codeunit "Kiota ClientConfig SOHH")
+    procedure SetClientConfig(var NewClientConfig: Codeunit "Kiota ClientConfig")
     begin
         ClientConfig := NewClientConfig;
     end;
@@ -30,9 +30,9 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         BodySet := true;
     end;
 
-    procedure SetBody(Objects: List of [Interface "Kiota IModelClass SOHH"])
+    procedure SetBody(Objects: List of [Interface "Kiota IModelClass"])
     var
-        Object: Interface "Kiota IModelClass SOHH";
+        Object: Interface "Kiota IModelClass";
         JsonArray: JsonArray;
         JsonAsText: Text;
     begin
@@ -43,7 +43,7 @@ codeunit 87103 "Kiota RequestHandler SoHH"
         BodySet := true;
     end;
 
-    procedure SetBody(Object: Interface "Kiota IModelClass SOHH")
+    procedure SetBody(Object: Interface "Kiota IModelClass")
     var
         JsonAsText: Text;
     begin

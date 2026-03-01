@@ -3,7 +3,7 @@ namespace SimonOfHH.Kiota.Utilities;
 using System.IO;
 using System.Text;
 using System.Utilities;
-codeunit 87104 "RequestHelper SOHH"
+codeunit 87104 "RequestHelper"
 {
     procedure IsContentHeader(HeaderName: Text): Boolean
     begin

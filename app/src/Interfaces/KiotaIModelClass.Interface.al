@@ -1,6 +1,6 @@
 namespace SimonOfHH.Kiota.Definitions;
 
-interface "Kiota IModelClass SOHH"
+interface "Kiota IModelClass"
 {
     Access = public;
     procedure ToJson(): JsonObject;

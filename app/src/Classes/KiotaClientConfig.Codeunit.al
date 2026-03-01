@@ -4,15 +4,15 @@ using SimonOfHH.Kiota.Definitions;
 using SimonOfHH.Kiota.Utilities;
 using System.RestClient;
 
-codeunit 87107 "Kiota ClientConfig SOHH"
+codeunit 87107 "Kiota ClientConfig"
 {
     var
-        _Authorization: Codeunit "Kiota API Authorization SOHH";
-        _RequestHelper: Codeunit "RequestHelper SOHH";
+        _Authorization: Codeunit "Kiota API Authorization";
+        _RequestHelper: Codeunit "RequestHelper";
         CustomHttpHandlerSet: Boolean;
         _CustomHeaders: Dictionary of [Text, Text];
         _QueryParameters: Dictionary of [Text, Text];
-        _Client: Interface "Kiota IApiClient SOHH";
+        _Client: Interface "Kiota IApiClient";
         _HttpHandler: Interface "Http Client Handler";
         _BaseURL: Text;
 
@@ -39,22 +39,22 @@ codeunit 87107 "Kiota ClientConfig SOHH"
         exit(_Authorization.IsInitialized());
     end;
 
-    procedure Authorization(NewAuthorization: Codeunit "Kiota API Authorization SOHH")
+    procedure Authorization(NewAuthorization: Codeunit "Kiota API Authorization")
     begin
         _Authorization := NewAuthorization;
     end;
 
-    procedure Authorization(): Codeunit "Kiota API Authorization SOHH"
+    procedure Authorization(): Codeunit "Kiota API Authorization"
     begin
         exit(_Authorization);
     end;
 
-    procedure Client(): Interface "Kiota IApiClient SOHH"
+    procedure Client(): Interface "Kiota IApiClient"
     begin
         exit(_Client);
     end;
 
-    procedure Client(NewApiClient: Interface "Kiota IApiClient SOHH")
+    procedure Client(NewApiClient: Interface "Kiota IApiClient")
     begin
         _Client := NewApiClient;
     end;

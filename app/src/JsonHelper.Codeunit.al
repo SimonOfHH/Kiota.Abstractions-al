@@ -2,7 +2,7 @@ namespace SimonOfHH.Kiota.Utilities;
 
 using SimonOfHH.Kiota.Definitions;
 
-codeunit 87101 "JSON Helper SOHH"
+codeunit 87101 "JSON Helper"
 {
     procedure JsonArrayToStringList(Token: JsonToken) Values: List of [Text]
     var
@@ -141,7 +141,7 @@ codeunit 87101 "JSON Helper SOHH"
         TargetObject.Add(JKey, jarray);
     end;
 
-    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Interface "Kiota IModelClass SOHH")
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Interface "Kiota IModelClass")
     begin
         AddToObjectIfNotEmpty(TargetObject, JKey, JValue, false);
     end;
@@ -179,18 +179,18 @@ codeunit 87101 "JSON Helper SOHH"
             TargetObject.Add(JKey, JValue);
     end;
 
-    procedure AddToArrayIfNotEmpty(var TargetArray: JsonArray; JValue: Interface "Kiota IModelClass SOHH")
+    procedure AddToArrayIfNotEmpty(var TargetArray: JsonArray; JValue: Interface "Kiota IModelClass")
     begin
         AddToArrayIfNotEmpty(TargetArray, JValue, false);
     end;
 
-    procedure AddToArrayIfNotEmpty(var TargetArray: JsonArray; JValue: Interface "Kiota IModelClass SOHH"; Nullable: Boolean)
+    procedure AddToArrayIfNotEmpty(var TargetArray: JsonArray; JValue: Interface "Kiota IModelClass"; Nullable: Boolean)
     begin
         if (not JsonFromCodeunitIsEmpty(JValue)) or Nullable then
             TargetArray.Add(JValue.ToJson());
     end;
 
-    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Interface "Kiota IModelClass SOHH"; Nullable: Boolean)
+    procedure AddToObjectIfNotEmpty(var TargetObject: JsonObject; JKey: Text; JValue: Interface "Kiota IModelClass"; Nullable: Boolean)
     begin
         if (not JsonFromCodeunitIsEmpty(JValue)) then
             if (JKey = 'base') then
@@ -199,7 +199,7 @@ codeunit 87101 "JSON Helper SOHH"
                 TargetObject.Add(JKey, JValue.ToJson());
     end;
 
-    local procedure AddToObjectFromBaseObject(var TargetObject: JsonObject; JValue: Interface "Kiota IModelClass SOHH")
+    local procedure AddToObjectFromBaseObject(var TargetObject: JsonObject; JValue: Interface "Kiota IModelClass")
     var
         JObject: JsonObject;
         JBaseValue: JsonToken;
@@ -216,7 +216,7 @@ codeunit 87101 "JSON Helper SOHH"
         end;
     end;
 
-    local procedure JsonFromCodeunitIsEmpty(JValue: Interface "Kiota IModelClass SOHH"): Boolean
+    local procedure JsonFromCodeunitIsEmpty(JValue: Interface "Kiota IModelClass"): Boolean
     var
         JToken: JsonToken;
         JKeys: List of [Text];

@@ -3,7 +3,7 @@ namespace SimonOfHH.Kiota.Utilities;
 using System.IO;
 using System.Text;
 using System.Utilities;
-codeunit 87100 "StreamHelper SOHH"
+codeunit 87100 "StreamHelper"
 {
     Access = Public;
 
